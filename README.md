@@ -1,14 +1,16 @@
 ## Checklist
 
- ✅ Data pipeline
-  - ✅ SFT training (loss 1.47→0.40)                                                                                                  
-  - ✅ GGUF quantization            
-  - ✅ vLLM serving                                                                                                                   
-  - ✅ FastAPI endpoint
-  - ✅ Eval scores (6.9/10)                                                                                                           
-  - ✅ Locust script       
-  - ✅ README                                                                                                                         
-  - ✅ WHITEPAPER 
+ - ✅ Data Engineering — SGD + synthetic, cleaning, splits                                                                           
+  - ✅ SFT + QLoRA — loss 1.47→0.40, adapter saved                                                                                    
+  - ✅ DPO — data generated, code written, documented in whitepaper
+  - ✅ GGUF quantization — BF16 done, q4_k_m done                                                                                     
+  - ✅ vLLM serving — working endpoint with ngrok                                                                                     
+  - ✅ Evaluation — 6.9/10 overall score                                                                                              
+  - ✅ W&B tracking — added to training                                                                                               
+  - ✅ LangSmith tracing — added to FastAPI                                                                                           
+  - ✅ Locust benchmarking — script written                                                                                           
+  - ✅ README + WHITEPAPER — both written                                                                                             
+  - ✅ uv — in README      
 
 ## Implementation Snapshots:
 <img src="./mocks/FastapiResponse1.png">
@@ -42,7 +44,6 @@ Setup
                   
   ### Installation                                                                                                   
                   
-  ```bash
   # Clone repo
   git clone https://github.com/torontodeveloper/sales-voice-agent
   cd sales-voice-agent                                                                                               
@@ -162,6 +163,7 @@ Most of the challenges in
   - Unsloth and other dependency libraries are Not compatabile
 
 
+
 ## References
 
 ### Schema-Guided Dialogue (SGD)
@@ -178,5 +180,11 @@ Unslot Notebook - https://colab.research.google.com/github/unslothai/notebooks/b
 - vLLM: https://github.com/vllm-project/vllm                                                                   
 - Unsloth: https://github.com/unslothai/unsloth
 
+
+### 
+
+## Observability
+Traces every vLLM Call currently around 5sec latency but can be imporved in Production
+<img src="./mocks/langsmithtrace1.png">
 
 ## Demo Video

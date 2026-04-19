@@ -24,6 +24,7 @@ url = "https://gothic-dyslexic-overstate.ngrok-free.dev/v1/chat/completions"
 
 
 @app.post("/call_sales_voice_agent")
+@traceable
 def call_sales_voice_agent(chat_prompt: ChatPrompt):
     print(f"chat prompt {chat_prompt}")
     response = httpx.post(
@@ -36,6 +37,8 @@ def call_sales_voice_agent(chat_prompt: ChatPrompt):
             ],
             "max_tokens": 200,
         },
+        headers={"ngrok-skip-browser-warning": "true"},
+        timeout=30,
     )
     print(
         f"response is {response.status_code}, {type(response)} {type(response.json())}"
