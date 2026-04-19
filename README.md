@@ -1,4 +1,37 @@
-## Setup                                                                                                           
+## Checklist
+
+ ✅ Data pipeline
+  - ✅ SFT training (loss 1.47→0.40)                                                                                                  
+  - ✅ GGUF quantization            
+  - ✅ vLLM serving                                                                                                                   
+  - ✅ FastAPI endpoint
+  - ✅ Eval scores (6.9/10)                                                                                                           
+  - ✅ Locust script       
+  - ✅ README                                                                                                                         
+  - ✅ WHITEPAPER 
+
+## Implementation Snapshots:
+<img src="./mocks/FastapiResponse1.png">
+<img src="./mocks/FastapiResponse2.png">
+
+
+## Eval Results                                                                                                                     
+<h2>LLM-as-a-Judge (GPT-4o-mini) on fine-tuned model responses: </h2>                                                                         
+ 
+                                                                                                                                     
+  | Metric | Score |
+  |--------|-------|                                                                                                                  
+  | Overall | 6.9/10 |
+  | Professionalism | 8.1/10 |
+  | Empathy | 6.9/10 |                                                                                                                
+  | Objection Handling | 6.1/10 |
+  | Sales Effectiveness | 6.8/10 |                                                                                                    
+                  
+
+
+Setup                                                                                               
+
+
                                                                                                                      
   ### Prerequisites                                                                                                  
   - Python 3.12+  
@@ -40,16 +73,18 @@
   # Step 4: Train (run in Colab)
   # Open sales-voice-agent.ipynb in Google Colab
                                                                                                                      
-  # Step 5: Serve
-  python -m vllm.entrypoints.openai.api_server \                                                                     
-      --model "unsloth/Meta-Llama-3.1-8B-Instruct" \                                                                 
-      --port 8000 --enforce-eager
+  # Step 5: start vLLM
+ Run script associated with vLLM
                                                                                                                      
   # Step 6: Evaluate
-  python scripts/eval/evaluate.py  
+  python scripts/eval/evaluate_vLLM.py   using vLLL which will publish public ngrok Url https://gothic-dyslexic-overstate.ngrok-free.dev/v1/chat/completions
 
   # Step 7: To run 1000 concurrent users
-  locust -f scripts/bench/locust_bench.py --host https://your-ngrok-url 
+  locust -f scripts/bench/locust_bench.py --host https://gothic-dyslexic-overstate.ngrok-free.dev/v1/chat/completions.  We are not running Locust on colab or my local due to Out of Memory error possibility for 1000 concurrent users
+
+  Step 8: To launch FastAPI server
+  go to server directory and "fastapi dev" will last Fastapi SERVER
+  go To localhost:8000/docs or use React client to access Sales Voice agent API Endpoint
 
 # Sales Voice Agent
 
@@ -59,9 +94,8 @@ ABC Energy is building a specialized LLM to power a next-generation Voice AI Sal
 
 This builds a production-grade engineering loop: from raw data processing and fine-tuning to quantization and concurrency.
 
-Implementation Snapshots:
-<img src='./mocks/FastapiResponse1.png'>
-<img src='./mocks/FastapiResponse2.png'>
+
+  
 
 ## Training Data
 
@@ -114,6 +148,8 @@ There are function_only,function_cot and function_cot_nlg available options whil
 5. vLLM Out of Memory issues, i have to use memory utilization .85% or so, played with combine with some other configurations
 6. As of transformers v4.44, default chat template is no longer allowed, so I had switch to Instruct llama model instead of Base one as Instruct has Chat template but can be worked with Base with some additional configuration for chat template which will come back later
 7. Installing TRL library for DPO training is getting into troubles with library version mismatch, dependency library installation like merge kit, pydantic mismatch etc
+
+8. GGUF BF16 conversion successful, q4_k_m quantization attempted — blocked by Colab memory/time constraints
 
 Thoughts:
 For a startups or SME, QLoRA is cost-effective. At enterprise scale I'd evaluate whether fine-tuning  ROI justifies the infra vs. prompt engineering on a frontier model.

@@ -2,3 +2,5 @@ datasets==4.8.4
 python-dotenv==1.2.2
 openai==2.32.0
 locust
+langsmith
+fastapi[standard]
