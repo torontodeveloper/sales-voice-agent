@@ -19,7 +19,7 @@ def save_json_data(file_path, data):
             file.write(json.dumps(record) + "\n")
 
 
-shared_gpt_data = load_json_data("./data/processed/sythetic_sgd_dataset.jsonl")
+shared_gpt_data = load_json_data("./data/processed/sythetic_sgd_dataset_parsed.jsonl")
 # shuffle the data in place
 random.shuffle(shared_gpt_data)
 

@@ -14,7 +14,16 @@ if not OPENAI_API_KEY:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 os.makedirs("data", exist_ok=True)
-
+customer_positive_scenarios = [
+    "Customer is excited to sign up for a green energy plan",
+    "Customer wants to upgrade to a premium plan after seeing bill savings",
+    "Customer calls to thank the agent and asks about referral program",
+    "Customer is happy with service and wants to add another property",
+    "Customer asks about loyalty rewards and long-term contract benefits",
+    "Customer wants to switch to renewable energy and asks for best plan",
+    "Customer is moving and wants to transfer service to new address",
+    "Customer asks about budget billing to make payments predictable",
+]
 customer_complaint_scenarios = [
     "Customer says their energy bill is very high and threatens to cancel if costs aren't reduced",
     "Customer wants to switch from their current provider because of poor service",
@@ -25,6 +34,7 @@ customer_complaint_scenarios = [
     "Customer is on a fixed income and needs the most affordable plan available",
     "Customer had an outage and is angry, agent must retain them with a better plan",
 ]
+customer_scenarios = [*customer_positive_scenarios, *customer_complaint_scenarios]
 
 
 def generate_dialogue(scenario: str):
@@ -60,9 +70,9 @@ def generate_dialogue(scenario: str):
 # run this file first to create if not already there otherwise,it will overwite
 if __name__ == "__main__":
     with open("data/processed/sythetic_sgd_dataset.jsonl", "w") as file:
-        for scenario in customer_complaint_scenarios:
+        for scenario in customer_scenarios:
             print(f"scenari is {scenario}")
-            for _ in range(3):
+            for _ in range(30):
                 print(f"iteration", _)
                 conversation = generate_dialogue(scenario)
                 conversation["id"] = f"{str(uuid.uuid4())}"
