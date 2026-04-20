@@ -29,7 +29,9 @@
   | Objection Handling | 6.1/10 |
   | Sales Effectiveness | 6.8/10 |                                                                                                    
                   
-
+## Traing Weights & Bias Metric
+<img src="./mocks/weightsbias.png">
+<href="https://api.wandb.ai/links/carenegi/lq1d977c" alt="Weight&Bias Training Report">
 
 Setup                                                                                               
 
