@@ -61,7 +61,20 @@
     higher = more aggressive alignment                                                                               
 
   - We can also try RLHF for specific call scenarios or any tool calling                                                                                                                   
-  ---                                                                                                                
+  ---   
+  Performance Optimization Techniques                                                                                               
+Time to First Token (TTFT) — critical for voice:                                                                                    
+  PagedAttention — doesn't reduce TTFT directly, helps throughput (concurrent users). Manages KV cache memory so more requests fit in  GPU simultaneously.<br>
+  Speculative Decoding — does reduce TTFT and overall latency:                                                                        
+  --speculative-model "meta-llama/Llama-3.2-1B-Instruct"
+  --num-speculative-tokens 5                                                              
+  Small 1B model drafts 5 tokens, 8B model verifies in one pass — 2-3x faster.                                                        
+  KV Cache — reduces latency for multi-turn conversations:                                                                            
+  - Turn 1: compute KV cache for system prompt
+  - Turn 2: reuse cached KV, only compute new tokens                                                                                  
+  - Without cache: recompute everything each turn = slow for voice
+  TTFT target: <200ms (user hears response quickly)                                                                                   
+  KV cache: helps multi-turn (5+ turn sales conversations)              
   ## 3. Quantization & Serving
 
   ### vLLM Serving — Completed

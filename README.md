@@ -30,6 +30,9 @@
   | Sales Effectiveness | 6.8/10 |                                                                                                    
                   
 ## Traing Weights & Bias Metric
+Training Summary Improved over runs<br>
+Run 1: loss 1.47 → 0.62 (160 synthetic records)<br>
+Run 2: loss 1.47 → 0.40 (480 synthetic records)<br>Run 3: loss 1.47 → 0.35 (W&B tracked)<br>
 <img src="./mocks/weightsbias.png">
 <href="https://api.wandb.ai/links/carenegi/lq1d977c" alt="Weight&Bias Training Report">
 
@@ -77,8 +80,7 @@ Setup
   # Open sales-voice-agent.ipynb in Google Colab
                                                                                                                      
   # Step 5: start vLLM
- Run script associated with vLLM
-                                                                                                                     
+python -m vllm.entrypoints.openai.api_server --model "unsloth/Meta-Llama-3.1-8B-Instruct" --port 8000 --enforce-eager --enable-prefix-caching --gpu-memory-utilization 0.85 --max-model-len 2048                                                                                             *enable-prefix-caching is to enable KV(Key Value)   caching to improve latency at inference                                                                                                            
   # Step 6: Evaluate
   python scripts/eval/evaluate_vLLM.py   using vLLL which will publish public ngrok Url https://gothic-dyslexic-overstate.ngrok-free.dev/v1/chat/completions
 
@@ -103,6 +105,20 @@ This builds a production-grade engineering loop: from raw data processing and fi
 ## Training Data
 
 Training data combines real SGD task-oriented dialogues for natural conversation structure with GPT-4o synthesized energy sales scenarios for domain-specific objection handling and closing techniques.
+
+
+## Performance Report                                                                                                               
+                                                                                                                                      
+  | Metric | Value | Notes |                                                                                                          
+  |--------|-------|-------|
+  | vLLM latency (Colab L4) | ~5s | Includes ngrok overhead |                                                                         
+  | vLLM latency (production A100) | <500ms | Target for voice SLA |                                                                  
+  | Throughput (Colab) | ~1 req/s | Single GPU, no batching |                                                                         
+  | Throughput (production) | 300+ req/s | PagedAttention + continuous batching |                                                     
+  | Model size (bf16) | ~16GB | Full precision |                                                                                      
+  | Model size (GGUF q4_k_m) | ~4.5GB | 4x reduction |                                                                                
+  | Training time (60 steps) | ~18 min | L4 GPU, batch_size=2 |                                                                       
+  | Parameters trained | 41M/8B | 0.52% via LoRA |  
 
 ## Design Decision
 

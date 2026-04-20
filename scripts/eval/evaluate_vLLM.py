@@ -63,12 +63,16 @@ def get_agent_response(customer_message: str) -> str:
     return response.json()["choices"][0]["message"]["content"]
 
 
-def evaluate_test_set(test_file, output_file, n_samples=20):
+def evaluate_test_set(test_file, output_file):
     results = []
     with open(test_file) as file:
         test_data = [json.loads(line) for line in file]
 
-    for record in test_data[:n_samples]:
+    # Filter energy records first
+    energy_records = [r for r in test_data if "EnergyPlan" in r.get("services", [])]
+    print(f"Total energy records in test set: {len(energy_records)}")
+
+    for record in energy_records[]:
         if "EnergyPlan" not in record.get("services", []):
             continue
         convs = record["conversations"]
@@ -85,6 +89,4 @@ def evaluate_test_set(test_file, output_file, n_samples=20):
 
 
 if __name__ == "__main__":
-    evaluate_test_set(
-        "data/splits/test_data.jsonl", "data/gpt4llm_eval_results.json", n_samples=9999
-    )
+    evaluate_test_set("data/splits/test_data.jsonl", "data/gpt4llm_eval_results.json")
