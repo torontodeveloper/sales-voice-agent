@@ -1,16 +1,7 @@
-## Checklist
+## Demo Video
+https://youtu.be/AmeehihXi04
 
- - ✅ Data Engineering — SGD + synthetic, cleaning, splits                                                                           
-  - ✅ SFT + QLoRA — loss 1.47→0.40, adapter saved                                                                                    
-  - ✅ DPO — data generated, code written, documented in whitepaper
-  - ✅ GGUF quantization — BF16 done, q4_k_m done                                                                                     
-  - ✅ vLLM serving — working endpoint with ngrok                                                                                     
-  - ✅ Evaluation — 6.9/10 overall score                                                                                              
-  - ✅ W&B tracking — added to training                                                                                               
-  - ✅ LangSmith tracing — added to FastAPI                                                                                           
-  - ✅ Locust benchmarking — script written                                                                                           
-  - ✅ README + WHITEPAPER — both written                                                                                             
-  - ✅ uv — in README      
+<img src="./mocks/youtube.png">
 
 ## Implementation Snapshots:
 <img src="./mocks/FastapiResponse1.png">
@@ -205,4 +196,16 @@ Unslot Notebook - https://colab.research.google.com/github/unslothai/notebooks/b
 Traces every vLLM Call currently around 5sec latency but can be imporved in Production
 <img src="./mocks/langsmithtrace1.png">
 
-## Demo Video
+## Checklist
+
+ - ✅ Data Engineering — SGD + synthetic, cleaning, splits                                                                           
+  - ✅ SFT + QLoRA — loss 1.47→0.40, adapter saved                                                                                    
+  - ✅ DPO — data generated, code written, documented in whitepaper
+  - ✅ GGUF quantization — BF16 done, q4_k_m done                                                                                     
+  - ✅ vLLM serving — working endpoint with ngrok                                                                                     
+  - ✅ Evaluation — 6.9/10 overall score                                                                                              
+  - ✅ W&B tracking — added to training                                                                                               
+  - ✅ LangSmith tracing — added to FastAPI                                                                                           
+  - ✅ Locust benchmarking — script written                                                                                           
+  - ✅ README + WHITEPAPER — both written                                                                                             
+  - ✅ uv — in README 
