@@ -9,7 +9,7 @@
   ### Dataset Strategy
   Combined two sources:
   - **SGD (Schema-Guided Dialogue)** — 14,919 task-oriented dialogues for natural               conversation structure via Mediform/sgd-sharegpt (function_cot_nlg config)                                       
-  - **Synthetic Energy Dialogues** — 480 GPT-4o-mini generated records covering          objection handling, positive sales scenarios, and closing techniques. I nitially, I had 48 samples, then later 160 samples and finally to 480 sample synthetic data. I like to expand this to 1000s of record with proportin of 20% synthetic and 80% of SGD data with SGD data at 18k recores that brings roughly 3600 or so many synthetic records                                            
+  - **Synthetic Energy Dialogues** — 480 GPT-4o-mini generated records covering          objection handling, positive sales scenarios, and closing techniques. Initially, I had 48 samples, then later 160 samples and finally to 480 sample synthetic data. I like to expand this to 1000s of record with proportin of 20% synthetic and 80% of SGD data with SGD data at 18k recores that brings roughly 3600 or so many synthetic records                                            
 
   ### Why function_cot_nlg                                                                                           
   Three SGD configs were evaluated:                                                                                  
