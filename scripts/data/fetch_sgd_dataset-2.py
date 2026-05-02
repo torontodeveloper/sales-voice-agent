@@ -3,6 +3,7 @@ import json
 import os
 from dotenv import load_dotenv
 import pprint
+from pathlib import Path
 
 
 # run this file after synthetic file
@@ -24,7 +25,10 @@ def main():
     pprint.pprint(sample["conversations"], indent=4)
     for item in sample["conversations"]:
         pprint.pprint(f'{item["from"]}============>, {item["value"]}')
-    with open("data/processed/sythetic_sgd_dataset.jsonl", "a+") as file:
+    base_dir = Path(__file__).parent.parent.parent
+    print(f'Base dire {base_dir}')
+    output_dir = base_dir/"data"/"processed"/"synthetic_sg_dataset.jsonl"
+    with open(output_dir, "a+") as file:
         print(f"Each row in SGD dataset ===> {share_gpt_data["train"][0]}")
         for row in share_gpt_data["train"]:
             record = {

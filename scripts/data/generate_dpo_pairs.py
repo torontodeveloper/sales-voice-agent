@@ -4,6 +4,7 @@ import os
 import json
 import time
 import uuid
+from pathlib import Path
 
 load_dotenv()
 
@@ -53,6 +54,9 @@ def generate_dialogue(objection: str):
     }
 
 
+base_dir = Path(__file__).parent.parent.parent
+print(f'Base dire {base_dir}')
+output_dir = base_dir/"data"/"processed"/"dpo_generated_pair.jsonl.jsonl"
 if __name__ == "__main__":
     dpo_pair = []
     for objection_scenario in objection_list:
@@ -60,6 +64,6 @@ if __name__ == "__main__":
             response = generate_dialogue(objection_scenario)
             dpo_pair.append(response)
 
-    with open("data/processed/dpo_generated_pair.jsonl", "w") as file:
+    with open(output_dir, "w") as file:
         for line in dpo_pair:
             file.write(json.dumps(line) + "\n")

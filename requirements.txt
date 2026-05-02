@@ -4,3 +4,4 @@ openai==2.32.0
 locust
 langsmith
 fastapi[standard]
+vllm==0.8.5 

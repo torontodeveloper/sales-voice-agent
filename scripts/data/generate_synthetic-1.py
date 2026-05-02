@@ -4,6 +4,7 @@ import os
 import json
 import time
 import uuid
+from pathlib import Path
 
 load_dotenv()
 
@@ -66,10 +67,13 @@ def generate_dialogue(scenario: str):
     )
     return json.loads(response.output_text)
 
-
+base_dir = Path(__file__).parent.parent.parent
+print(f'path is {base_dir}')
+data_output_dir = base_dir/"data"/"processed"/"synthetic_sg_dataset.jsonl"
+print(f'home path is {data_output_dir}')
 # run this file first to create if not already there otherwise,it will overwite
 if __name__ == "__main__":
-    with open("data/processed/sythetic_sgd_dataset.jsonl", "w") as file:
+    with open(data_output_dir, "w") as file:
         for scenario in customer_scenarios:
             print(f"scenari is {scenario}")
             for _ in range(30):
